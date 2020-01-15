@@ -1,12 +1,11 @@
 const { Router } = require('express');
-const axios = require('axios');
-const routes =  Router();
-routes.post('/devs', async(request,response)=>{        
-    const {github_username} = request.body; 
+const DevController = require('./controller/DevController');
+const searchController = require('./controller/searchController');
 
-    const  ApiResponse = await axios.get(`https://api.github.com/users/${github_username}`);
-    console.log(ApiResponse.data);
-    return response.json({ message : 'Hellow word omnss'});
-});
+const routes =  Router();
+routes.get('/devs', DevController.index);
+routes.post('/devs', DevController.store);
+
+routes.get('/search', searchController.index);
 
 module.exports = routes;
